@@ -1,0 +1,111 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Sign up Form</h1>
+        <form id="form">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" min="1968-02-10" max="2005-02-10" class="form-control" id="dob" name="dob" required>
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="acceptTerms" name="terms" required>
+                <label class="form-check-label" for="terms">I accept the terms and conditions</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <div class="mx-auto">
+            <h2 class="text-3xl text-center font-bold leading-tight">Entries</h2>
+            <div class="divide-y divide-gray-300/50" id="user-entries"></div>
+        </div>
+        <script>
+            const form = document.getElementById('form');
+
+            const retrieveEntries = () => {
+                let entries = localStorage.getItem("entries");
+                if (entries) {
+                    entries = JSON.parse(entries);
+                } else {
+                    entries = [];
+                }
+                return entries;
+            }
+            let entries = retrieveEntries();
+
+            const displayEntries = () => {
+                const entries = retrieveEntries();
+                const tableEntries = entries.map((entry) => {
+                    const nameCell = `<td class = 'border px-4 py-2'>${entry.name}</td>`;
+                    const emailCell = `<td class = 'border px-4 py-2'>${entry.email}</td>`;
+                    const passwordCell = `<td class = 'border px-4 py-2'>${entry.password}</td>`;
+                    const dobCell = `<td class = 'border px-4 py-2'>${entry.dob}</td>`;
+                    const acceptTermsCell = `<td class = 'border px-4 py-2'>${entry.acceptedTC}</td>`;
+
+                    const row = `<tr>${nameCell} ${emailCell} ${passwordCell} ${dobCell} ${acceptTermsCell}</tr>`;
+                    return row;
+                }).join("\n");
+
+                const table = `<table class="table-auto w-full"><tr>
+                    <th class="px-4 py-2">Name</th>
+                    <th class="px-4 py-2">Email</th>
+                    <th class="px-4 py-2">Password</th>
+                    <th class="px-4 py-2">Dob</th>
+                    <th class="px-4 py-2">Accepted Terms?</th>
+                    </tr>${tableEntries} </table>`;
+
+                let details = document.getElementById("user-entries");
+                details.innerHTML = table;
+            }
+
+            const saveUserForm = (event) => {
+                event.preventDefault();
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const dob = document.getElementById('dob').value;
+                const acceptedTC = document.getElementById('acceptTerms').checked;
+
+                const entry = {
+                    name,
+                    email,
+                    password,
+                    dob,
+                    acceptedTC
+                };
+                entries.push(entry);
+                localStorage.setItem("entries", JSON.stringify(entries));
+                displayEntries();
+            }
+
+            form.addEventListener('submit', saveUserForm);
+            displayEntries();
+        </script>
+</body>
+
+</html>
