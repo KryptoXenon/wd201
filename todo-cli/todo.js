@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const todoList = () => {
   all = [];
   const add = (todoItem) => {
@@ -8,26 +9,35 @@ const todoList = () => {
   };
 
   const overdue = () => {
-    const od = all.filter((items) => items.dueDate.split("-")[2] < new Date().getDate());
+    const od = all.filter(
+      (items) => items.dueDate.split("-")[2] < new Date().getDate()
+    );
     return od;
   };
 
   const dueToday = () => {
-    const dt = all.filter((items) => items.dueDate.split("-")[2] === String(new Date().getDate()));
+    const dt = all.filter(
+      (items) => items.dueDate.split("-")[2] === String(new Date().getDate())
+    );
     return dt;
   };
 
   const dueLater = () => {
-    const dl = all.filter((items) => items.dueDate.split("-")[2] > new Date().getDate());
+    const dl = all.filter(
+      (items) => items.dueDate.split("-")[2] > new Date().getDate()
+    );
     return dl;
   };
 
   const toDisplayableList = (list) => {
     const result = list.map((items) => {
-        const checkBox = items.completed === true ? "[x]" : "[ ]";
-        const displayDate = items.dueDate.split("-")[2] === String(new Date().getDate()) ? "" : items.dueDate;
-        return `${checkBox} ${items.title} ${displayDate}`;
-    })
+      const checkBox = items.completed === true ? "[x]" : "[ ]";
+      const displayDate =
+        items.dueDate.split("-")[2] === String(new Date().getDate())
+          ? ""
+          : items.dueDate;
+      return `${checkBox} ${items.title} ${displayDate}`;
+    });
     return result.join("\n");
   };
 
