@@ -37,13 +37,11 @@ describe("TodoList Test Suite", () => {
 
   test("Check Overdue Items", () => {
     const od = overdue();
-    console.log(od);
     expect(od.length).toBe(1);
   });
 
   test("Check Today Items", () => {
     const dt = dueToday();
-    console.log(dt);
     expect(dt.length).toBe(2);
   });
 
