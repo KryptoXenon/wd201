@@ -10,21 +10,27 @@ const todoList = () => {
 
   const overdue = () => {
     const od = all.filter(
-      (items) => items.dueDate.split("-")[2] < new Date().getDate()
+      (items) =>
+        items.dueDate.split("-")[2] <
+        new Date().toISOString().split("T")[0].split("-")[2]
     );
     return od;
   };
 
   const dueToday = () => {
     const dt = all.filter(
-      (items) => items.dueDate.split("-")[2] === String(new Date().getDate())
+      (items) =>
+        items.dueDate.split("-")[2] ===
+        String(new Date().toISOString().split("T")[0].split("-")[2])
     );
     return dt;
   };
 
   const dueLater = () => {
     const dl = all.filter(
-      (items) => items.dueDate.split("-")[2] > new Date().getDate()
+      (items) =>
+        items.dueDate.split("-")[2] >
+        new Date().toISOString().split("T")[0].split("-")[2]
     );
     return dl;
   };
