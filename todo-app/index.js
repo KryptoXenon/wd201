@@ -1,3 +1,6 @@
+/* eslint-disable comma-dangle */
+/* eslint-disable semi */
+/* eslint-disable quotes */
 const app = require("./app");
 
 app.createServer().listen(3000, () => {

@@ -1,3 +1,6 @@
+/* eslint-disable comma-dangle */
+/* eslint-disable semi */
+/* eslint-disable quotes */
 const request = require("supertest");
 
 const db = require("../models/index");
