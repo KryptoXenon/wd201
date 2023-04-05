@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
       return this.findAll({ order: [["id", "ASC"]] });
     }
 
+    static getTodos() {
+      return this.findAll();
+    }
+
     delete() {
       return this.destroy();
     }
