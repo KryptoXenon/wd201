@@ -1,4 +1,7 @@
 body {
-  background-color: gray;
-  font-family: "Courier New", Courier, monospace;
+  position: relative;
+  display: grid;
+  height: 100vh;
+  justify-content: center;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
